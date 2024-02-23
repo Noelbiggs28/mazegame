@@ -1,0 +1,20 @@
+what do you use to style html?,css,js,python,love2d
+What lauguage uses 'and' and 'or'?,Python,js,css,love2d
+What language uses '&&' and '||'?,Js,python,css,love2d
+What do list/arrays iterate by?, numbers, strings
+What do dictionaries/objects iterate by?, strings, numbers
+How do you format an f string in python?,print(f"my name is {name}"),printf("my name is {name)",print("my name is f{name})"
+How do you format f string in js?,print("my name is f{name}"),print(f"my name is {name}"),"printf("my name is {name)"
+How do you typecast to a number in python?,int('134'), Number('234'), '123'.toNumber(),'123'.toInt()
+How do you typecast to a numbe in js?,Number('234'), '123'.toNumber(),'123'.toInt(),int('134')
+Can you iterate through a number?,No,Yes
+How do you write 5 squared?,5**2,5^2,5.square(2)
+What does % in a math operation. ex. 5%2?, returns remainder of 5/2, returns 5/2 rounded down, returns how many times 2 goes into 5
+How do you link a stylesheet?,<link rel='stylesheet" href='styles.css'>,<script rel='stylesheet' src='styles.css>,<link src='styles.css' rel='stylesheet'>
+How do you link js?,<script src='app.js'>,<link src='app.js'>, <script href='app.js'>
+How do you make an image tag for local photos?, <img src='image.jpeg'>,<img href='image.jpeg'>
+How do you bring up the html boilerplate?, !,?,#,$
+How do you make sure js loads after html?, defer, wait, pause, set relationship
+What is 'in' used for in: for(let letter in word),objects,lists,arrays,numbers
+What is 'of' used for in: for(let letter of word),anything but objects,objects,true,false
+How do you make sure array doesnt change in js?,let static=Array.from(array), array1=array,List(array)
