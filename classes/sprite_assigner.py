@@ -2,10 +2,10 @@ import pygame
 
 class Sprite_Assigner():
     def __init__(self):
-    # Load the sprite sheet image
         pass
     @staticmethod
     def make_sheet():
+        # Load the sprite sheet image
         sprite_sheet = pygame.image.load("images/sprite_sheet.png")
         # Define the dimensions of individual sprites in the sheet
         sprite_width = 40

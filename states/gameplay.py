@@ -46,22 +46,8 @@ class Gameplay(BaseState):
         self.valid_cells = [(x, y) for y in range(self.maze_height) for x in range(self.maze_width) if self.maze_and_exit[0][y][x] == 6]
         player_x, player_y = random.choice(self.valid_cells)
         self.occupied_cells.append((player_x,player_y))
-
-        # pick key position
-        self.key_position = self.occupied_cells[0]
-        while self.key_position in self.occupied_cells:
-            key_x, key_y = random.choice(self.valid_cells)
-            self.key_position = (key_x,key_y)
-        self.occupied_cells.append(self.key_position)
-        self.key = Key(self.key_position[0], self.key_position[1])
-
-        # pick flashlight position
-        self.flashlight_position = self.occupied_cells[0]
-        while self.flashlight_position in self.occupied_cells:
-            flashlight_x, flashlight_y = random.choice(self.valid_cells)
-            self.flashlight_position = (flashlight_x,flashlight_y)
-        self.occupied_cells.append(self.flashlight_position)
-        self.flashlight = Flashlight(self.flashlight_position[0],self.flashlight_position[1])
+        self.key = Key(self.valid_cells, self.occupied_cells)
+        self.flashlight = Flashlight(self.valid_cells, self.occupied_cells)
         # create player
         self.player = Player(player_x, player_y, self.maze_and_exit[0])
 
