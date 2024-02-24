@@ -12,7 +12,7 @@ class Gameplay(BaseState):
         super(Gameplay, self).__init__()
         self.rect = pygame.Rect((0, 0), (40, 40))
         self.rect.center = self.screen_rect.center
-        
+        self.sight = 2
         # set variables
         self.maze_height = 20
         self.maze_width = 20
@@ -63,6 +63,7 @@ class Gameplay(BaseState):
         self.answer_choices = None
         self.choice = None
 
+    # do these things once 
     def do_once(self):
         if self.persist['sound']:
             pygame.mixer.music.load("images/maze_music.wav") 
@@ -78,7 +79,7 @@ class Gameplay(BaseState):
         if event.type == pygame.QUIT:
             self.quit = True
 
-        #get mouse user input for answering questions
+        #get mouse user input for answering multiple choice questions
         elif self.persist['multiple_choice'] and self.current_question:
             if event.type == pygame.MOUSEMOTION:
                 # Check if the mouse cursor is positioned over any answer choice
@@ -121,7 +122,7 @@ class Gameplay(BaseState):
         elif event.type == pygame.KEYUP:
             if event.key == K_ESCAPE:
                 self.quit = True
-
+            # gets answers for single choice questions
             elif event.key == K_RETURN: #submits answer
                 if self.text_input_active:
                     # Check if the player has answered the question and process the answer
@@ -148,7 +149,7 @@ class Gameplay(BaseState):
                 else:
                     # Add the pressed character to the player's answer
                     self.player_answer += event.unicode
-
+            # players movement
             elif event.key == K_UP or event.key == K_w:
                 self.player.move(0, -1)
                 self.step_counter +=1
@@ -164,9 +165,12 @@ class Gameplay(BaseState):
             elif event.key == K_p:
                 print(self.persist)
 
+        # if player lands on the key. make the square that had doors be able to be walked on
         if self.player.x == self.key[0] and self.player.y == self.key[1]:
             self.player.has_key = True
             self.player.walkable_squares.append(9)
+
+        # if player has reached the exit
         if self.player.x == self.maze_and_exit[1][0] and self.player.y == self.maze_and_exit[1][1]:
             self.persist['profile'][0]['exp'] = Player_Data.change_num_stat(self.persist['profile'][0],'exp',1)
             pygame.mixer.music.stop()
@@ -181,7 +185,7 @@ class Gameplay(BaseState):
             for x in range(self.maze_width):
                 if (x, y) == (self.player.x, self.player.y): #draw player
                     self.player.draw(surface)
-                elif abs(x - self.player.x) <= 1 and abs(y - self.player.y) <= 1: #checks squares around player in 3x3 grid
+                elif abs(x - self.player.x) <= self.sight and abs(y - self.player.y) <= self.sight: #checks squares around player in 3x3 grid or sight distance
                     if (x, y) == (self.key[0], self.key[1]):#draw key or dirt
                         if self.player.has_key == False: 
                             surface.blit(self.key_image, (x * self.cell_size, y * self.cell_size))
