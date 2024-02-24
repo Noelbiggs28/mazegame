@@ -38,8 +38,8 @@ class Gameplay(BaseState):
         self.next_state = "GAME_OVER"
 
         # make maze and set exit
-        self.maze_maker = Maze_Generator()
-        self.maze_and_exit = self.maze_maker.generate_maze()
+        
+        self.maze_and_exit = Maze_Generator.generate_maze()
 
         self.occupied_cells = []
         #pick player position
