@@ -6,6 +6,7 @@ from classes.generate_maze import Maze_Generator
 from classes.player import Player
 from classes.sprite_assigner import Sprite_Assinger
 from classes.player_loader_saver import Player_Data
+from classes.key import Key
 
 class Gameplay(BaseState):
     def __init__(self):
@@ -46,11 +47,12 @@ class Gameplay(BaseState):
         player_x, player_y = random.choice(valid_cells)
         occupied_cells.append((player_x,player_y))
         # pick key position
-        self.key = occupied_cells[0]
-        while self.key in occupied_cells:
+        self.key_position = occupied_cells[0]
+        while self.key_position in occupied_cells:
             key_x, key_y = random.choice(valid_cells)
-            self.key = (key_x,key_y)
-        occupied_cells.append(self.key)
+            self.key_position = (key_x,key_y)
+        occupied_cells.append(self.key_position)
+        self.key = Key(self.key_position[0], self.key_position[1])
         # pick flashlight position
         self.flashlight = occupied_cells[0]
         while self.flashlight in occupied_cells:
@@ -179,7 +181,7 @@ class Gameplay(BaseState):
                 print(self.persist)
 
         # if player lands on the key. make the square that had doors be able to be walked on
-        if self.player.x == self.key[0] and self.player.y == self.key[1]:
+        if self.player.x == self.key.x and self.player.y == self.key.y:
             self.player.has_key = True
             self.player.walkable_squares.append(9)
         # if player lands on flashlight
@@ -203,7 +205,7 @@ class Gameplay(BaseState):
                 if (x, y) == (self.player.x, self.player.y): #draw player
                     self.player.draw(surface)
                 elif abs(x - self.player.x) <= self.player.sight and abs(y - self.player.y) <= self.player.sight: #checks squares around player in 3x3 grid or sight distance
-                    if (x, y) == (self.key[0], self.key[1]):#draw key or dirt
+                    if (x, y) == (self.key.x, self.key.y):#draw key or dirt
                         if self.player.has_key == False: 
                             surface.blit(self.key_image, (x * self.cell_size, y * self.cell_size))
                         else:

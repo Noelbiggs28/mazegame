@@ -17,7 +17,7 @@ class Player():
         self.has_key = False
         self.has_flashlight = False
         self.walkable_squares = [6,7]
-        self.sight = 2
+        self.sight = 20
 
     def move(self, dx, dy):
         new_x = self.x + dx
