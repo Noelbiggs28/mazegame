@@ -34,3 +34,6 @@ class Sprite_Assinger():
 # 8 = wall
 # 9 = door
 # 10 = heart
+# 11 = key
+# 12 = cracked door
+# 13 = flashlight

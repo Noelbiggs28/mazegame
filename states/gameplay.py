@@ -12,7 +12,6 @@ class Gameplay(BaseState):
         super(Gameplay, self).__init__()
         self.rect = pygame.Rect((0, 0), (40, 40))
         self.rect.center = self.screen_rect.center
-        self.sight = 2
         # set variables
         self.maze_height = 20
         self.maze_width = 20
@@ -30,6 +29,7 @@ class Gameplay(BaseState):
         self.heart_image = self.sprites[10]
         self.key_image = self.sprites[11]
         self.cracked_door_image = self.sprites[12]
+        self.flashlight_image = self.sprites[13]
 
         self.wrong_sound = pygame.mixer.Sound("images/wrong.wav")
         self.right_sound = pygame.mixer.Sound("images/right.wav")
@@ -40,11 +40,24 @@ class Gameplay(BaseState):
         self.maze_maker = Maze_Generator()
         self.maze_and_exit = self.maze_maker.generate_maze()
 
-        #generate player
+        occupied_cells = []
+        #pick player position
         valid_cells = [(x, y) for y in range(self.maze_height) for x in range(self.maze_width) if self.maze_and_exit[0][y][x] == 6]
         player_x, player_y = random.choice(valid_cells)
-        key_x, key_y = random.choice(valid_cells)
-        self.key = [key_x,key_y]
+        occupied_cells.append((player_x,player_y))
+        # pick key position
+        self.key = occupied_cells[0]
+        while self.key in occupied_cells:
+            key_x, key_y = random.choice(valid_cells)
+            self.key = (key_x,key_y)
+        occupied_cells.append(self.key)
+        # pick flashlight position
+        self.flashlight = occupied_cells[0]
+        while self.flashlight in occupied_cells:
+            flashlight_x, flashlight_y = random.choice(valid_cells)
+            self.flashlight = (flashlight_x,flashlight_y)
+        occupied_cells.append(self.flashlight)
+        # create player
         self.player = Player(player_x, player_y, self.maze_and_exit[0])
 
         #do things once on startup
@@ -169,7 +182,11 @@ class Gameplay(BaseState):
         if self.player.x == self.key[0] and self.player.y == self.key[1]:
             self.player.has_key = True
             self.player.walkable_squares.append(9)
-
+        # if player lands on flashlight
+        if self.player.x == self.flashlight[0] and self.player.y == self.flashlight[1]:
+            self.player.has_flashlight = True
+            self.player.sight += 1
+            self.flashlight = (-1,-1)
         # if player has reached the exit
         if self.player.x == self.maze_and_exit[1][0] and self.player.y == self.maze_and_exit[1][1]:
             self.persist['profile'][0]['exp'] = Player_Data.change_num_stat(self.persist['profile'][0],'exp',1)
@@ -185,10 +202,15 @@ class Gameplay(BaseState):
             for x in range(self.maze_width):
                 if (x, y) == (self.player.x, self.player.y): #draw player
                     self.player.draw(surface)
-                elif abs(x - self.player.x) <= self.sight and abs(y - self.player.y) <= self.sight: #checks squares around player in 3x3 grid or sight distance
+                elif abs(x - self.player.x) <= self.player.sight and abs(y - self.player.y) <= self.player.sight: #checks squares around player in 3x3 grid or sight distance
                     if (x, y) == (self.key[0], self.key[1]):#draw key or dirt
                         if self.player.has_key == False: 
                             surface.blit(self.key_image, (x * self.cell_size, y * self.cell_size))
+                        else:
+                            surface.blit(self.dirt_image, (x * self.cell_size, y * self.cell_size))
+                    elif (x, y) == (self.flashlight[0], self.flashlight[1]):#draw flashlight or dirt
+                        if self.player.has_flashlight == False: 
+                            surface.blit(self.flashlight_image, (x * self.cell_size, y * self.cell_size))
                         else:
                             surface.blit(self.dirt_image, (x * self.cell_size, y * self.cell_size))
                     elif self.maze_and_exit[0][y][x] == 6: #draw paths 

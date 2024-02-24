@@ -15,7 +15,9 @@ class Player():
         self.wall_hit_sound = pygame.mixer.Sound("images/wall_hit.wav")
         self.player_image = self.player_right
         self.has_key = False
+        self.has_flashlight = False
         self.walkable_squares = [6,7]
+        self.sight = 2
 
     def move(self, dx, dy):
         new_x = self.x + dx
