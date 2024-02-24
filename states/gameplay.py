@@ -57,7 +57,7 @@ class Gameplay(BaseState):
         self.trivia_frequency = 25
         self.current_question = None
         self.player_answer = ''
-        self.step_counter = 1
+        
         self.hovered_choice = None
         self.text_input_rect = pygame.Rect(300, 400, 200, 30)
         self.text_input_active = False
@@ -114,7 +114,7 @@ class Gameplay(BaseState):
                                     pygame.mixer.music.stop()
                                     self.done = True
 
-                            self.step_counter += 1
+                            self.player.step_counter += 1
                         # Reset the player's answer and question
                         self.player_answer = ''
                         self.current_question = None
@@ -141,7 +141,7 @@ class Gameplay(BaseState):
                             if self.health == 0:
                                 pygame.mixer.music.stop()
                                 self.done = True
-                        self.step_counter += 1
+                        self.player.step_counter += 1
                     # Reset the player's answer and question
                         self.player_answer = ''
                         self.current_question = None
@@ -156,16 +156,16 @@ class Gameplay(BaseState):
             # players movement
             elif event.key == K_UP or event.key == K_w:
                 self.player.move(0, -1)
-                self.step_counter +=1
+            
             elif event.key == K_DOWN or event.key == K_s:
                 self.player.move(0, 1)
-                self.step_counter +=1
+             
             elif event.key == K_LEFT or event.key == K_a:
                 self.player.move(-1, 0)
-                self.step_counter +=1
+             
             elif event.key == K_RIGHT or event.key == K_d:
                 self.player.move(1, 0)
-                self.step_counter +=1
+                
             elif event.key == K_p:
                 print(self.persist)
 
@@ -231,7 +231,7 @@ class Gameplay(BaseState):
         surface.blit(score_surface, (800 // 2 - score_surface.get_width() - 10, 10))
 
         # Check if it's time to ask a trivia question
-        if self.step_counter % self.trivia_frequency == 0 and not self.text_input_active and not self.mouse_input_active:
+        if self.player.step_counter % self.trivia_frequency == 0 and not self.text_input_active and not self.mouse_input_active:
             self.current_question = random.choice(self.trivia_questions)
             if self.persist['multiple_choice']:
                 self.mouse_input_active = True

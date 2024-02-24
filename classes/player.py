@@ -18,6 +18,7 @@ class Player():
         self.has_flashlight = False
         self.walkable_squares = [6,7]
         self.sight = 4
+        self.step_counter = 1
 
     def move(self, dx, dy):
         new_x = self.x + dx
@@ -37,6 +38,7 @@ class Player():
             self.player_image = self.player_up
         elif dy > 0:
             self.player_image = self.player_down
+        self.step_counter +=1
             
 # draws player
     def draw(self, surface):
