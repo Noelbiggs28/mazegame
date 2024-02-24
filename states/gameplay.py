@@ -38,16 +38,16 @@ class Gameplay(BaseState):
         self.next_state = "GAME_OVER"
 
         # make maze and set exit
-        
         self.maze_and_exit = Maze_Generator.generate_maze()
-
         self.occupied_cells = []
         #pick player position
         self.valid_cells = [(x, y) for y in range(self.maze_height) for x in range(self.maze_width) if self.maze_and_exit[0][y][x] == 6]
         player_x, player_y = random.choice(self.valid_cells)
         self.occupied_cells.append((player_x,player_y))
-        self.key = Key(self.valid_cells, self.occupied_cells)
-        self.flashlight = Flashlight(self.valid_cells, self.occupied_cells)
+        self.key = Key()
+        self.occupied_cells = self.key.place_item(self.valid_cells, self.occupied_cells)
+        self.flashlight = Flashlight()
+        self.occupied_cells = self.flashlight.place_item(self.valid_cells, self.occupied_cells)
         # create player
         self.player = Player(player_x, player_y, self.maze_and_exit[0])
 
@@ -57,7 +57,6 @@ class Gameplay(BaseState):
         self.trivia_frequency = 25
         self.current_question = None
         self.player_answer = ''
-        
         self.hovered_choice = None
         self.text_input_rect = pygame.Rect(300, 400, 200, 30)
         self.text_input_active = False
