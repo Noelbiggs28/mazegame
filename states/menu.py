@@ -20,6 +20,7 @@ class Menu(BaseState):
         return text.get_rect(center=center)
 
     def handle_action(self, index):
+        # if start game is selected, set next state to game. load questions selected before and end menu state.
         if index == 0:
             self.next_state = "GAMEPLAY"
             path = self.persist['questions_path']
@@ -29,6 +30,7 @@ class Menu(BaseState):
                 question_list = Trivia.load_solo_questions(path)
             self.persist['questions'] = question_list
             self.done = True
+        # if flashcards is selected, set next state to flashcards. load questions selected before and end menu state.
         elif index ==1:
             self.next_state = "FLASH_CARDS"
             path = self.persist['questions_path']
@@ -38,11 +40,14 @@ class Menu(BaseState):
                 question_list = Trivia.load_solo_questions(path)
             self.persist['questions'] = question_list
             self.done = True
+        # if settings is selected set next state to settings and end menu state
         elif index == 2:
             self.next_state = "SETTINGS"
             self.done = True
+        # if save game is selected. save player info to csv
         elif index == 3:
             Player_Data.save_player_stats(self.persist['profile'][0]['path'] ,self.persist['profile'])
+        # quis game
         elif index == 4:
             self.quit = True
 
@@ -57,6 +62,7 @@ class Menu(BaseState):
         if event.type == pygame.QUIT:
             self.quit = True
         elif event.type == pygame.KEYUP:
+            # testing exp
             if event.key == pygame.K_a:
                 print(self.persist['profile'][0])
             elif event.key == pygame.K_z:
