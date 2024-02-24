@@ -1,13 +1,13 @@
 import pygame
-from classes.sprite_assigner import Sprite_Assinger
+from classes.sprite_assigner import Sprite_Assigner
 class Player():
     def __init__(self, x, y, maze):
         self.x = x
         self.y = y
         self.cell_size = 40
         self.maze = maze
-        self.sprite_manager = Sprite_Assinger()
-        self.sprites = self.sprite_manager.make_sheet()
+       
+        self.sprites = Sprite_Assigner.make_sheet()
         self.player_left = self.sprites[0]    
         self.player_right = self.sprites[1]
         self.player_up = self.sprites[2]

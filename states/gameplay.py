@@ -4,7 +4,7 @@ from pygame.locals import *
 from .base import BaseState
 from classes.generate_maze import Maze_Generator
 from classes.player import Player
-from classes.sprite_assigner import Sprite_Assinger
+from classes.sprite_assigner import Sprite_Assigner
 from classes.player_loader_saver import Player_Data
 from classes.key import Key
 from classes.flashlight import Flashlight
@@ -20,8 +20,8 @@ class Gameplay(BaseState):
         self.score = 0
         self.health = 3
         #load images
-        self.sprite_manager = Sprite_Assinger()
-        self.sprites = self.sprite_manager.make_sheet()
+        # self.sprite_manager = Sprite_Assinger()
+        self.sprites = Sprite_Assigner.make_sheet()
         self.dark_image = self.sprites[5]
         self.dirt_image = self.sprites[6]
         self.exit_image = self.sprites[7]
