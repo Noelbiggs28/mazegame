@@ -14,7 +14,7 @@ from states.flash_cards import FlashCards
 pygame.init()
 # set screen dimensions
 screen = pygame.display.set_mode((800, 800))
-# all states go here to pass into game
+# initialized all state and stores them in a dictionary.
 states = {
     "MENU": Menu(),
     "SPLASH": Splash(),
