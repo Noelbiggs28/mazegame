@@ -14,7 +14,8 @@ from states.flash_cards import FlashCards
 pygame.init()
 # set screen dimensions
 screen = pygame.display.set_mode((800, 800))
-# initialized all state and stores them in a dictionary.
+# initialized all state and stores them in a dictionary. to pass into game.
+# they do not receive input/update/ or get drawn on screen until they are the game.state
 states = {
     "MENU": Menu(),
     "SPLASH": Splash(),
@@ -29,7 +30,7 @@ states = {
 
 # create game object with(dimensions/all states/starting state)
 game = Game(screen, states, "SPLASH")
-# run game
+# call run function of game which is the game loop
 game.run()
 
 pygame.quit()

@@ -19,13 +19,13 @@ class Game(object):
         self.fps = 60
         self.states = states #absorbs initialized states passed in
         self.state_name = start_state #making string of state passed in 
-        self.state = self.states[self.state_name] #sets state equal to state passed in
+        self.state = self.states[self.state_name] #sets state equal to state passed in that you want to run
 
         
 
     def event_loop(self):
         for event in pygame.event.get():
-            self.state.get_event(event) #performs current states get_even function
+            self.state.get_event(event) #performs current states get_event function
 
     #performs these functions when self.done == True
     def flip_state(self):
@@ -36,9 +36,9 @@ class Game(object):
         next_state = self.state.next_state #gets this from current state
         self.state.done = False #resets done condition
         self.state_name = next_state #sets stateindex variable
-        persistent = self.state.persist #forwards persistant data across states
-        self.state = self.states[self.state_name] #calls function for next state from state dictionary
-        self.state.startup(persistent)
+        persistent = self.state.persist #store persistant data in current state
+        self.state = self.states[self.state_name] #changes current state to next state
+        self.state.startup(persistent) #loads persistant data from 2 lines up into new state.
         self.state.do_once() #perform any actions for state you only want run once upon switching to the state
         
 

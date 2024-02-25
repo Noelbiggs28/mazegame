@@ -8,7 +8,7 @@ class Maze_Generator():
         maze_width = 20
         maze_height = 20
         maze = [[False for _ in range(maze_width)] for _ in range(maze_height)]
-        visited = [[False for _ in range(maze_width)] for _ in range(maze_height)] #makes a new array. fillas all with false
+        visited = [[False for _ in range(maze_width)] for _ in range(maze_height)] #makes a new array. fills all with false
         frontier = [(1, 1)]  # Start from the top-left corner
         exit_x = random.choice([0, maze_width - 1])
         exit_y = random.choice([0, maze_height - 1])
