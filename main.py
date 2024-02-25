@@ -14,6 +14,7 @@ from states.flash_cards import FlashCards
 pygame.init()
 # set screen dimensions
 screen = pygame.display.set_mode((800, 800))
+
 # initialized all state and stores them in a dictionary. to pass into game.
 # they do not receive input/update/ or get drawn on screen until they are the game.state
 states = {

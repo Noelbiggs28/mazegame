@@ -12,6 +12,7 @@ class Gameplay(BaseState):
     def __init__(self):
         super(Gameplay, self).__init__()
         # set variables
+        
         self.maze_height = 20
         self.maze_width = 20
         self.cell_size = 40
@@ -87,8 +88,8 @@ class Gameplay(BaseState):
                 for i, choice in enumerate(self.answer_choices):
                     choice_surface = self.text_input_font.render(f"{chr(65+i)}. {choice}", True, pygame.Color('white'))
                     choice_rect = pygame.Rect(
-                        800 // 2 - choice_surface.get_width() // 2,
-                        800 // 2 + i * 30,
+                        self.screen_rect.width // 2 - choice_surface.get_width() // 2,
+                        self.screen_rect.height// 2 + i * 30,
                         choice_surface.get_width(),
                         choice_surface.get_height()
                     )
@@ -215,7 +216,7 @@ class Gameplay(BaseState):
         surface.blit(self.exit_image, (self.maze_and_exit[1][0] * self.cell_size, self.maze_and_exit[1][1] * self.cell_size))
 
         #draw health screen width/ heart width/ hearts/ doesnt block exit
-        heart_x = 800 - (50) * 3 - 40
+        heart_x = self.screen_rect.width - (50) * 3 - 40
         for _ in range(self.health):
             heart_rect = pygame.Rect(heart_x, 10, 40, 40)
             surface.blit(self.heart_image, heart_rect)
@@ -225,7 +226,7 @@ class Gameplay(BaseState):
         # draw score
         score_text = f"Score: {self.score}"
         score_surface = score_font.render(score_text, True, pygame.Color('white'))
-        surface.blit(score_surface, (800 // 2 - score_surface.get_width() - 10, 10))
+        surface.blit(score_surface, (self.screen_rect.width // 2 - score_surface.get_width() - 10, 10))
 
         # Check if it's time to ask a trivia question
         if self.player.step_counter % self.trivia_frequency == 0 and not self.text_input_active and not self.mouse_input_active:
@@ -250,15 +251,15 @@ class Gameplay(BaseState):
 
                 # Display the question
                 question_surface = self.text_input_font.render(question_text, True, pygame.Color('white'))
-                surface.blit(question_surface, (800 // 2 - question_surface.get_width() // 2, 800 // 2 - 50))
+                surface.blit(question_surface, (self.screen_rect.width // 2 - question_surface.get_width() // 2, self.screen_rect.height // 2 - 50))
 
                 # Display the answer choices
                 choice_rects=[]
                 for i, choice in enumerate(self.answer_choices):
                     choice_surface = self.text_input_font.render(f"{chr(65+i)}. {choice}", True, pygame.Color('white'))
                     choice_rect = pygame.Rect(
-                    800 // 2 - choice_surface.get_width() // 2,
-                    800 // 2 + i * 30,
+                    self.screen_rect.width // 2 - choice_surface.get_width() // 2,
+                    self.screen_rect.height // 2 + i * 30,
                     choice_surface.get_width(),
                     choice_surface.get_height()
                     )
@@ -266,14 +267,14 @@ class Gameplay(BaseState):
                     if choice == self.hovered_choice:
                         pygame.draw.rect(surface, pygame.Color('darkgreen'), choice_rect)  # Highlight the selected choice
 
-                    surface.blit(choice_surface, (800 // 2 - choice_surface.get_width() // 2, 800 // 2 + i * 30))
+                    surface.blit(choice_surface, (self.screen_rect.width // 2 - choice_surface.get_width() // 2, self.screen_rect.height // 2 + i * 30))
         
 #sc     # # Draw the trivia question on the SCREEN
         if self.persist['multiple_choice'] == False:
             if self.current_question:
                 question_text = self.current_question['question']
                 question_surface = self.text_input_font.render(question_text, True, pygame.Color('white'))
-                surface.blit(question_surface, (800 // 2 - question_surface.get_width() // 2, 800 // 2 - 50))
+                surface.blit(question_surface, (self.screen_rect.width // 2 - question_surface.get_width() // 2, self.screen_rect.height // 2 - 50))
 
                 # Draw the player's answer text input box
                 pygame.draw.rect(surface, pygame.Color('white'), self.text_input_rect, 2)
