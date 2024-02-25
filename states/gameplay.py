@@ -29,6 +29,7 @@ class Gameplay(BaseState):
         self.key_image = self.sprites[11]
         self.cracked_door_image = self.sprites[12]
         self.flashlight_image = self.sprites[13]
+        self.png_key_image = self.sprites[14]
         # load sounds
         self.wrong_sound = pygame.mixer.Sound("images/wrong.wav")
         self.right_sound = pygame.mixer.Sound("images/right.wav")
@@ -222,7 +223,10 @@ class Gameplay(BaseState):
             surface.blit(self.heart_image, heart_rect)
             heart_x += 50    
         score_font = pygame.font.Font(None, 24)
-
+        # draw key on top if obtained
+        if self.player.has_key:
+            key_rect = pygame.Rect(self.screen_rect.width - 250, 10, 40, 40)
+            surface.blit(self.png_key_image, key_rect)
         # draw score
         score_text = f"Score: {self.score}"
         score_surface = score_font.render(score_text, True, pygame.Color('white'))

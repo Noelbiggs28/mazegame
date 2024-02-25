@@ -38,3 +38,4 @@ class Sprite_Assigner():
 # 11 = key
 # 12 = cracked door
 # 13 = flashlight
+# 14 = png key
