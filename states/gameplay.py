@@ -11,8 +11,6 @@ from classes.flashlight import Flashlight
 class Gameplay(BaseState):
     def __init__(self):
         super(Gameplay, self).__init__()
-        self.rect = pygame.Rect((0, 0), (40, 40))
-        self.rect.center = self.screen_rect.center
         # set variables
         self.maze_height = 20
         self.maze_width = 20
@@ -20,7 +18,6 @@ class Gameplay(BaseState):
         self.score = 0
         self.health = 3
         #load images
-        # self.sprite_manager = Sprite_Assinger()
         self.sprites = Sprite_Assigner.make_sheet()
         self.dark_image = self.sprites[5]
         self.dirt_image = self.sprites[6]
@@ -31,15 +28,16 @@ class Gameplay(BaseState):
         self.key_image = self.sprites[11]
         self.cracked_door_image = self.sprites[12]
         self.flashlight_image = self.sprites[13]
-
+        # load sounds
         self.wrong_sound = pygame.mixer.Sound("images/wrong.wav")
         self.right_sound = pygame.mixer.Sound("images/right.wav")
         # select next state
         self.next_state = "GAME_OVER"
-
+    
         # make maze and set exit
         self.maze_and_exit = Maze_Generator.generate_maze()
-        self.occupied_cells = []
+        self.occupied_cells = [(self.maze_and_exit[1][0],self.maze_and_exit[1][1])]
+       
         #pick player position
         self.valid_cells = [(x, y) for y in range(self.maze_height) for x in range(self.maze_width) if self.maze_and_exit[0][y][x] == 6]
         player_x, player_y = random.choice(self.valid_cells)
