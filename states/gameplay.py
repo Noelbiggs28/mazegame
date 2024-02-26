@@ -68,13 +68,16 @@ class Gameplay(BaseState):
 
     # do these things once 
     def do_once(self):
+        # if sound is checked in option play sounds and music
         if self.persist['sound']:
             pygame.mixer.music.load("images/maze_music.wav") 
             pygame.mixer.music.set_volume(0.1) #make it quieter
             pygame.mixer.music.play(-1) 
             pygame.mixer.set_num_channels(1)
-        else:
+        # if unchecked no sound
+        else: 
             pygame.mixer.set_num_channels(0)
+        # take questions in from persistant data
         self.trivia_questions = self.persist['questions']
         self.done_once = True
 
@@ -155,16 +158,13 @@ class Gameplay(BaseState):
             # players movement
             elif event.key == K_UP or event.key == K_w:
                 self.player.move(0, -1)
-            
             elif event.key == K_DOWN or event.key == K_s:
                 self.player.move(0, 1)
-             
             elif event.key == K_LEFT or event.key == K_a:
                 self.player.move(-1, 0)
-             
             elif event.key == K_RIGHT or event.key == K_d:
                 self.player.move(1, 0)
-                
+            # print persist for testing
             elif event.key == K_p:
                 print(self.persist)
 
@@ -172,14 +172,19 @@ class Gameplay(BaseState):
         if self.player.x == self.key.x and self.player.y == self.key.y:
             self.player.has_key = True
             self.player.walkable_squares.append(9)
+
         # if player lands on flashlight
         if self.player.x == self.flashlight.x and self.player.y == self.flashlight.y:
             self.player.sight += 1
             self.occupied_cells = self.flashlight.move_item(self.valid_cells, self.occupied_cells)
+
         # if player has reached the exit
         if self.player.x == self.maze_and_exit[1][0] and self.player.y == self.maze_and_exit[1][1]:
+            #updates and saves exp
             self.persist['profile'][0]['exp'] = Player_Data.change_num_stat(self.persist['profile'][0],'exp',1)
+            Player_Data.save_player_stats(self.persist['profile'][0]['path'] ,self.persist['profile'])
             pygame.mixer.music.stop()
+            # changes next state to high schore state if you made it to the top 5
             if (len(self.persist['high_scores']) < 5 or self.score > self.persist['high_scores'][-1][1]):
                 self.next_state = "Add_High_Score"
             self.persist['score'] = self.score
