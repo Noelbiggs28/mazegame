@@ -32,12 +32,13 @@ class Maze_Generator():
 
         # Set the exit to an empty cell. 
         visited[exit_y][exit_x] = True
-
+        doors = []
         # makes one squares next to exit true
         for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
             nx, ny = exit_x + dx, exit_y + dy
             if 0 <= nx < maze_width and 0 <= ny < maze_height:
                 visited[ny][nx] = 9
+                doors.append([ny,nx])
                 
 
         # Copy the visited cells to the maze representation
@@ -54,5 +55,5 @@ class Maze_Generator():
                     maze[y][x] = 6
                 # maze[y][x] = visited[y][x]
   
-        return [maze,[exit_x, exit_y]]
+        return [maze,[exit_x, exit_y],doors]
 

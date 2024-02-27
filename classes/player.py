@@ -16,7 +16,7 @@ class Player():
         self.player_image = self.player_right
         self.has_key = False
         self.has_flashlight = False
-        self.walkable_squares = [6,7]
+        self.walkable_squares = [6,7,12]
         self.sight = 4
         self.step_counter = 1
 

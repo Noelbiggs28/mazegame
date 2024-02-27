@@ -172,7 +172,10 @@ class Gameplay(BaseState):
         # if player lands on the key. make the square that had doors be able to be walked on
         if self.player.x == self.key.x and self.player.y == self.key.y:
             self.player.has_key = True
-            self.player.walkable_squares.append(9)
+            # changes shut door to cracked door
+            doors = self.maze_and_exit[2]
+            self.maze_and_exit[0][doors[0][0]][doors[0][1]] = 12
+            self.maze_and_exit[0][doors[1][0]][doors[1][1]] = 12
 
         # if player lands on flashlight
         if self.player.x == self.flashlight.x and self.player.y == self.flashlight.y:
@@ -198,17 +201,27 @@ class Gameplay(BaseState):
                 #checks squares around player in 3x3 grid or sight distance
                 if abs(x - self.player.x) <= self.player.sight and abs(y - self.player.y) <= self.player.sight: 
                     #draws maze in the sight grid
+           
                     surface.blit(self.map_cypher[self.maze_and_exit[0][y][x]], (x * self.cell_size, y * self.cell_size)) 
                 #print darkness if not in sight
                 else:
                     surface.blit(self.dark_image, (x * self.cell_size, y * self.cell_size))
+
         #draw player
         self.player.draw(surface)
+
         # draw flashlight
         self.flashlight.draw_if_in_sight(self.player, surface, self.flashlight_image)
+
         #draws key if in sight and not already taken
         if self.player.has_key == False:
             self.key.draw_if_in_sight(self.player, surface, self.key_image)
+
+        # draw key on top if obtained
+        if self.player.has_key:
+            key_rect = pygame.Rect(self.screen_rect.width - 250, 10, 40, 40)
+            surface.blit(self.png_key_image, key_rect)
+
         # Mark the exit as gate
         surface.blit(self.exit_image, (self.maze_and_exit[1][0] * self.cell_size, self.maze_and_exit[1][1] * self.cell_size))
 
@@ -219,10 +232,7 @@ class Gameplay(BaseState):
             surface.blit(self.heart_image, heart_rect)
             heart_x += 50    
         score_font = pygame.font.Font(None, 24)
-        # draw key on top if obtained
-        if self.player.has_key:
-            key_rect = pygame.Rect(self.screen_rect.width - 250, 10, 40, 40)
-            surface.blit(self.png_key_image, key_rect)
+
         # draw score
         score_text = f"Score: {self.score}"
         score_surface = score_font.render(score_text, True, pygame.Color('white'))
@@ -236,8 +246,6 @@ class Gameplay(BaseState):
             else:
                 self.text_input_active = True
             
-            
-
 #mc          # Shuffle the answer choices only once when a new question is presented
             if self.persist['multiple_choice']:    
                 self.answer_choices = [self.current_question['correct_answer']] + self.current_question['wrong_answers']
