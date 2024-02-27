@@ -1,7 +1,7 @@
 import random
 class Item():
     def __init__(self):
-        pass
+        self.cell_size = 40
     
     def place_item(self, valid_squares, occupied_squares):
         item_position = occupied_squares[0]
@@ -20,4 +20,8 @@ class Item():
         occupied_squares.remove(current_position)
 
         return occupied_squares
+    
+    def draw_if_in_sight(self, player, surface, image):
+        if abs(self.x - player.x) <= player.sight and abs(self.y - player.y) <= player.sight:  
+            surface.blit(image, (self.x * self.cell_size, self.y * self.cell_size))
     
