@@ -30,6 +30,7 @@ class Gameplay(BaseState):
         self.cracked_door_image = self.sprites[12]
         self.flashlight_image = self.sprites[13]
         self.png_key_image = self.sprites[14]
+        self.map_cypher = {5:self.dark_image,6:self.dirt_image,7:self.exit_image,8:self.wall_image,9:self.door_image,12:self.cracked_door_image}
         # load sounds
         self.wrong_sound = pygame.mixer.Sound("images/wrong.wav")
         self.right_sound = pygame.mixer.Sound("images/right.wav")
@@ -166,7 +167,7 @@ class Gameplay(BaseState):
                 self.player.move(1, 0)
             # print persist for testing
             elif event.key == K_p:
-                print(self.persist)
+                print(self.maze_and_exit)
 
         # if player lands on the key. make the square that had doors be able to be walked on
         if self.player.x == self.key.x and self.player.y == self.key.y:
@@ -194,30 +195,20 @@ class Gameplay(BaseState):
         #draw maze
         for y in range(self.maze_height):
             for x in range(self.maze_width):
-                if (x, y) == (self.player.x, self.player.y): #draw player
-                    self.player.draw(surface)
-                elif abs(x - self.player.x) <= self.player.sight and abs(y - self.player.y) <= self.player.sight: #checks squares around player in 3x3 grid or sight distance
-                    if (x, y) == (self.key.x, self.key.y):#draw key or dirt
-                        if self.player.has_key == False: 
-                            surface.blit(self.key_image, (x * self.cell_size, y * self.cell_size))
-                        else:
-                            surface.blit(self.dirt_image, (x * self.cell_size, y * self.cell_size))
-                    elif (x, y) == (self.flashlight.x, self.flashlight.y):#draw flashlight or dirt
-                        if self.player.has_flashlight == False: 
-                            surface.blit(self.flashlight_image, (x * self.cell_size, y * self.cell_size))
-                        else:
-                            surface.blit(self.dirt_image, (x * self.cell_size, y * self.cell_size))
-                    elif self.maze_and_exit[0][y][x] == 6: #draw paths 
-                        surface.blit(self.dirt_image, (x * self.cell_size, y * self.cell_size))
-                    elif self.maze_and_exit[0][y][x] == 9:
-                        if self.player.has_key == False: #draw locked door or cracked door
-                            surface.blit(self.door_image, (x * self.cell_size, y * self.cell_size))
-                        else:
-                            surface.blit(self.cracked_door_image, (x * self.cell_size, y * self.cell_size))
-                    else: #draw walls if false
-                        surface.blit(self.wall_image, (x * self.cell_size, y * self.cell_size))
-                else: #cover everything else in darkness
+                #checks squares around player in 3x3 grid or sight distance
+                if abs(x - self.player.x) <= self.player.sight and abs(y - self.player.y) <= self.player.sight: 
+                    #draws maze in the sight grid
+                    surface.blit(self.map_cypher[self.maze_and_exit[0][y][x]], (x * self.cell_size, y * self.cell_size)) 
+                #print darkness if not in sight
+                else:
                     surface.blit(self.dark_image, (x * self.cell_size, y * self.cell_size))
+        #draw player
+        self.player.draw(surface)
+        # draw flashlight
+        self.flashlight.draw_if_in_sight(self.player, surface, self.flashlight_image)
+        #draws key if in sight and not already taken
+        if self.player.has_key == False:
+            self.key.draw_if_in_sight(self.player, surface, self.key_image)
         # Mark the exit as gate
         surface.blit(self.exit_image, (self.maze_and_exit[1][0] * self.cell_size, self.maze_and_exit[1][1] * self.cell_size))
 
