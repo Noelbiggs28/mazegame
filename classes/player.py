@@ -1,17 +1,12 @@
 import pygame
 from classes.sprite_assigner import Sprite_Assigner
-class Player():
+class Player(Sprite_Assigner):
     def __init__(self, x, y, maze):
+        super(Player, self).__init__()
         self.x = x
         self.y = y
         self.cell_size = 40
         self.maze = maze
-       
-        self.sprites = Sprite_Assigner.make_sheet()
-        self.player_left = self.sprites[0]    
-        self.player_right = self.sprites[1]
-        self.player_up = self.sprites[2]
-        self.player_down = self.sprites[3]   
         self.wall_hit_sound = pygame.mixer.Sound("images/wall_hit.wav")
         self.player_image = self.player_right
         self.has_key = False

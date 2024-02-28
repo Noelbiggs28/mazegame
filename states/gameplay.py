@@ -4,7 +4,7 @@ from pygame.locals import *
 from .base import BaseState
 from classes.generate_maze import Maze_Generator
 from classes.player import Player
-from classes.sprite_assigner import Sprite_Assigner
+
 from classes.player_loader_saver import Player_Data
 from classes.key import Key
 from classes.flashlight import Flashlight
@@ -19,17 +19,17 @@ class Gameplay(BaseState):
         self.score = 0
         self.health = 3
         #load images
-        self.sprites = Sprite_Assigner.make_sheet()
-        self.dark_image = self.sprites[5]
-        self.dirt_image = self.sprites[6]
-        self.exit_image = self.sprites[7]
-        self.wall_image = self.sprites[8]
-        self.door_image = self.sprites[9]
-        self.heart_image = self.sprites[10]
-        self.key_image = self.sprites[11]
-        self.cracked_door_image = self.sprites[12]
-        self.flashlight_image = self.sprites[13]
-        self.png_key_image = self.sprites[14]
+        
+        # self.dark_image = self.all_sprites[5]
+        # self.dirt_image = self.all_sprites[6]
+        # self.exit_image = self.all_sprites[7]
+        # self.wall_image = self.all_sprites[8]
+        # self.door_image = self.all_sprites[9]
+        # self.heart_image = self.all_sprites[10]
+        # self.key_image = self.all_sprites[11]
+        # self.cracked_door_image = self.all_sprites[12]
+        # self.flashlight_image = self.all_sprites[13]
+        # self.key_image = self.all_sprites[14]
         self.map_cypher = {5:self.dark_image,6:self.dirt_image,7:self.exit_image,8:self.wall_image,9:self.door_image,12:self.cracked_door_image}
         # load sounds
         self.wrong_sound = pygame.mixer.Sound("images/wrong.wav")
@@ -220,7 +220,7 @@ class Gameplay(BaseState):
         # draw key on top if obtained
         if self.player.has_key:
             key_rect = pygame.Rect(self.screen_rect.width - 250, 10, 40, 40)
-            surface.blit(self.png_key_image, key_rect)
+            surface.blit(self.key_image, key_rect)
 
         # Mark the exit as gate
         surface.blit(self.exit_image, (self.maze_and_exit[1][0] * self.cell_size, self.maze_and_exit[1][1] * self.cell_size))

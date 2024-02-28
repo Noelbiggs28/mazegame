@@ -2,7 +2,21 @@ import pygame
 
 class Sprite_Assigner():
     def __init__(self):
-        pass
+        self.all_sprites = self.make_sheet()
+        self.player_left = self.all_sprites[0]    
+        self.player_right = self.all_sprites[1]
+        self.player_up = self.all_sprites[2]
+        self.player_down = self.all_sprites[3]
+        self.dark_image = self.all_sprites[5]
+        self.dirt_image = self.all_sprites[6]
+        self.exit_image = self.all_sprites[7]
+        self.wall_image = self.all_sprites[8]
+        self.door_image = self.all_sprites[9]
+        self.heart_image = self.all_sprites[10]
+        self.key_image = self.all_sprites[11]
+        self.cracked_door_image = self.all_sprites[12]
+        self.flashlight_image = self.all_sprites[13]
+        
     @staticmethod
     def make_sheet():
         # Load the sprite sheet image
@@ -38,4 +52,3 @@ class Sprite_Assigner():
 # 11 = key
 # 12 = cracked door
 # 13 = flashlight
-# 14 = png key
