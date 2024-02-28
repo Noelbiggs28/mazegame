@@ -31,11 +31,8 @@ class Add_High_Score(BaseState):
         elif event.type == pygame.KEYUP:
             if self.text_input_active:
                 if event.key == pygame.K_RETURN:
-                    high_scores_class = High_Scores()
-                    self.high_scores.append((self.player_name, self.persist['score'])) 
-                    self.high_scores.sort(key=lambda x: x[1], reverse=True)
-                    self.high_scores = self.high_scores[:5]
-                    high_scores_class.save_high_scores('high_scores.txt',self.high_scores)
+                    self.persist['high_scores'].append((self.player_name, self.persist['score'])) 
+                    self.persist['high_scores'] = High_Scores.save_high_scores('high_scores.txt',self.persist['high_scores'])
                     self.text_input_active = False
                 elif event.key == pygame.K_BACKSPACE:
                     self.player_name = self.player_name[:-1]
