@@ -26,17 +26,24 @@ class High_Scores():
         return list_of_scores
 
     def draw(self, surface):
-        color = pygame.Color("grey")
-        # rect = (x,y,width, height)
-        rect = (self.screen_rect.centerx+100, 200, 200, 350)
-        pygame.draw.rect(surface, color, rect, width=0)
-        color = pygame.Color("blue")
+
+        title_color = pygame.Color("blue")
         font = pygame.font.Font(None, 24)
-        title_text = font.render(f"High Scores", True, color)
-        surface.blit(title_text, title_text.get_rect(center=(self.screen_rect.centerx+200, 250)))
+        title_text = font.render(f"High Scores", True, title_color)
+        title_rect = title_text.get_rect(center=(self.screen_rect.centerx + 200, 275))
+        surface.blit(title_text, title_rect)
+
         font = pygame.font.Font(None, 20)
+        score_color = pygame.Color("white")
+        total_height = title_rect.height  # Start with the height of the title
+        width = title_rect.width
         for index in range(len(self.high_scores)):
-            text_render = font.render(f"{self.high_scores[index][0]}: {self.high_scores[index][1]}", True, color)
-            text_position = text_render.get_rect(center=(self.screen_rect.centerx+200, 300 + (index * 50)))
+            text_render = font.render(f"{self.high_scores[index][0]}: {self.high_scores[index][1]}", True, score_color)
+            text_position = text_render.get_rect(center=(self.screen_rect.centerx + 200, 300 + total_height))
             surface.blit(text_render, text_position)
 
+            total_height += text_position.height  # Add the height of each line
+
+        background_color = pygame.Color("grey")
+        rect = (self.screen_rect.centerx + 140, 255, width + 30, total_height + 50)
+        pygame.draw.rect(surface, background_color, rect, width=2)
