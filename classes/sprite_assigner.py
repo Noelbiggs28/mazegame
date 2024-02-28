@@ -17,8 +17,8 @@ class Sprite_Assigner():
         self.cracked_door_image = self.all_sprites[12]
         self.flashlight_image = self.all_sprites[13]
         
-    @staticmethod
-    def make_sheet():
+    
+    def make_sheet(self):
         # Load the sprite sheet image
         sprite_sheet = pygame.image.load("images/sprite_sheet.png")
         # Define the dimensions of individual sprites in the sheet

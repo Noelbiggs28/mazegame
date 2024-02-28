@@ -18,18 +18,6 @@ class Gameplay(BaseState):
         self.cell_size = 40
         self.score = 0
         self.health = 3
-        #load images
-        
-        # self.dark_image = self.all_sprites[5]
-        # self.dirt_image = self.all_sprites[6]
-        # self.exit_image = self.all_sprites[7]
-        # self.wall_image = self.all_sprites[8]
-        # self.door_image = self.all_sprites[9]
-        # self.heart_image = self.all_sprites[10]
-        # self.key_image = self.all_sprites[11]
-        # self.cracked_door_image = self.all_sprites[12]
-        # self.flashlight_image = self.all_sprites[13]
-        # self.key_image = self.all_sprites[14]
         self.map_cypher = {5:self.dark_image,6:self.dirt_image,7:self.exit_image,8:self.wall_image,9:self.door_image,12:self.cracked_door_image}
         # load sounds
         self.wrong_sound = pygame.mixer.Sound("images/wrong.wav")
