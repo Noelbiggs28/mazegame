@@ -8,16 +8,16 @@ class Splash(BaseState):
         super(Splash, self).__init__()
        
         self.title = self.font.render("Maze Game", True, pygame.Color("blue"))
-        self.title_rect = self.title.get_rect(center=(self.screen_rect.centerx, 150))
+        self.title_rect = self.title.get_rect(center=(self.screen_rect.centerx, 250))
         self.author = self.font.render("By Noel Biggs", True, pygame.Color("blue"))
-        self.author_rect = self.title.get_rect(center=(self.screen_rect.centerx -12, 200))
+        self.author_rect = self.title.get_rect(center=(self.screen_rect.centerx -12, 300))
         # sets next state to menu
         self.next_state = "SELECT_PROFILE"
         self.time_active = 0
-        high_scores_list = High_Scores().load_high_scores('high_scores.txt')
+        self.high_scores_list = High_Scores().load_high_scores('high_scores.txt')
 
         # set default options
-        self.persist = {'multiple_choice': True, 'sound': True, 'high_scores': high_scores_list}
+        self.persist = {'multiple_choice': True, 'sound': True, 'high_scores': self.high_scores_list}
 
     def update(self, dt):
         # updates clock every dt 

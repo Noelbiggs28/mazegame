@@ -1,8 +1,8 @@
-
+import pygame
 class High_Scores():
-    def __init__(self):
-        pass
-
+    def __init__(self, screen_rect=False):
+        self.high_scores = self.load_high_scores('high_scores.txt')
+        self.screen_rect = screen_rect
 
     # Load high scores from a file (if any)
     @staticmethod
@@ -25,4 +25,18 @@ class High_Scores():
 
         return list_of_scores
 
+    def draw(self, surface):
+        color = pygame.Color("grey")
+        # rect = (x,y,width, height)
+        rect = (self.screen_rect.centerx+100, 200, 200, 350)
+        pygame.draw.rect(surface, color, rect, width=0)
+        color = pygame.Color("blue")
+        font = pygame.font.Font(None, 24)
+        title_text = font.render(f"High Scores", True, color)
+        surface.blit(title_text, title_text.get_rect(center=(self.screen_rect.centerx+200, 250)))
+        font = pygame.font.Font(None, 20)
+        for index in range(len(self.high_scores)):
+            text_render = font.render(f"{self.high_scores[index][0]}: {self.high_scores[index][1]}", True, color)
+            text_position = text_render.get_rect(center=(self.screen_rect.centerx+200, 300 + (index * 50)))
+            surface.blit(text_render, text_position)
 

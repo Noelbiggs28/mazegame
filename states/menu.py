@@ -3,6 +3,7 @@ import pygame
 from .base import BaseState
 from classes.load_questions import Trivia
 from classes.player_loader_saver import Player_Data
+from classes.high_scores import High_Scores
 
 class Menu(BaseState):
     def __init__(self):
@@ -10,13 +11,14 @@ class Menu(BaseState):
         self.active_index = 0
         self.options = ["Start Game", "Flash Cards", "Settings", "Save Game", "Quit Game"]
         self.next_state = "GAMEPLAY"
+        self.high_scores = High_Scores(self.screen_rect)
 
     def render_text(self, index):
         color = pygame.Color("white")
         return self.font.render(self.options[index], True, color)
 
     def get_text_position(self, text, index):
-        center = (self.screen_rect.centerx, 150 + (index * 50))
+        center = (self.screen_rect.centerx-200, 250 + (index * 50))
         return text.get_rect(center=center)
 
     def handle_action(self, index):
@@ -82,3 +84,4 @@ class Menu(BaseState):
                 pygame.draw.rect(surface, pygame.Color("black"), text_position)
 
             surface.blit(text_render, text_position)
+        self.high_scores.draw(surface)
