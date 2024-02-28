@@ -18,7 +18,7 @@ class Display_csv:
         option_rects = []
 
         for i, file in enumerate(csv_files):
-            option_text = font.render(f"{i+1}. {file}", True, pygame.Color("white"))
+            option_text = font.render(f"{i+1}. {file[:-4]}", True, pygame.Color("white"))
             option_texts.append(option_text)
             option_rect = option_text.get_rect(center=(surface.get_width() // 2, 200 + (i+1) * 50))
             option_rects.append(option_rect)
