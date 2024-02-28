@@ -27,9 +27,6 @@ class Select_Profile(BaseState):
         # Display the CSV file options
         # grabs all csv files from profile folder
         csv_file = self.display_csv.display_csv_options('profiles', surface, self.font)
-        # profile_data =Player_Data.load_player_stats(csv_file)
-        # self.persist['profile'] = profile_data[0]
-        # self.persist['profile']['path'] = csv_file
 
         # save profile info and path to persistant data for updating throughout game
         if csv_file:
