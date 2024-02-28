@@ -6,10 +6,11 @@ from classes.high_scores import High_Scores
 class Splash(BaseState):
     def __init__(self):
         super(Splash, self).__init__()
+       
         self.title = self.font.render("Maze Game", True, pygame.Color("blue"))
-        self.title_rect = self.title.get_rect(center=self.screen_rect.center)
+        self.title_rect = self.title.get_rect(center=(self.screen_rect.centerx, 150))
         self.author = self.font.render("By Noel Biggs", True, pygame.Color("blue"))
-        self.author_rect = self.title.get_rect(center=(self.screen_rect.centerx -12, self.screen_rect.centery + 50))
+        self.author_rect = self.title.get_rect(center=(self.screen_rect.centerx -12, 200))
         # sets next state to menu
         self.next_state = "SELECT_PROFILE"
         self.time_active = 0

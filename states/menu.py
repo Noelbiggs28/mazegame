@@ -16,7 +16,7 @@ class Menu(BaseState):
         return self.font.render(self.options[index], True, color)
 
     def get_text_position(self, text, index):
-        center = (self.screen_rect.centerx, self.screen_rect.centery + (index * 50))
+        center = (self.screen_rect.centerx, 150 + (index * 50))
         return text.get_rect(center=center)
 
     def handle_action(self, index):

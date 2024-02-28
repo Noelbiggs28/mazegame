@@ -21,7 +21,7 @@ class Select_Profile(BaseState):
 
         # Display the prompt
         prompt_text = self.font.render("Select your profile:", True, pygame.Color("white"))
-        prompt_rect = prompt_text.get_rect(center=(self.screen_rect.centerx, self.screen_rect.centery - 250))
+        prompt_rect = prompt_text.get_rect(center=(self.screen_rect.centerx, 150))
         surface.blit(prompt_text, prompt_rect)
 
         # Display the CSV file options

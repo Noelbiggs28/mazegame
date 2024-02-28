@@ -38,7 +38,7 @@ class Display_csv:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     return None
-                elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                     mouse_pos = pygame.mouse.get_pos()
                     for i, option_rect in enumerate(option_rects):
                         if option_rect.collidepoint(mouse_pos):
