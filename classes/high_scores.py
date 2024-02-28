@@ -1,17 +1,18 @@
 
 class High_Scores():
     def __init__(self):
-        self.high_scores = []
+        pass
+
 
     # Load high scores from a file (if any)
-    def load_high_scores(self, file_path):
-        try:
-            with open(file_path, 'r') as file:
-                for line in file:
-                    name, score = line.strip().split(',')
-                    self.high_scores.append((name, int(score)))
-        except FileNotFoundError:
-            pass
+    @staticmethod
+    def load_high_scores(file_path):
+        high_scores_list = []
+        with open(file_path, 'r') as file:
+            for line in file:
+                name, score = line.strip().split(',')
+                high_scores_list.append((name, int(score)))
+        return high_scores_list
 
     # Save high scores to a file
     @staticmethod

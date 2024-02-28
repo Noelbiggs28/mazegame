@@ -13,10 +13,10 @@ class Splash(BaseState):
         # sets next state to menu
         self.next_state = "SELECT_PROFILE"
         self.time_active = 0
-        high_scores_list = High_Scores()
-        high_scores_list.load_high_scores('high_scores.txt')
+        high_scores_list = High_Scores().load_high_scores('high_scores.txt')
+
         # set default options
-        self.persist = {'multiple_choice': True, 'sound': True, 'high_scores': high_scores_list.high_scores}
+        self.persist = {'multiple_choice': True, 'sound': True, 'high_scores': high_scores_list}
 
     def update(self, dt):
         # updates clock every dt 

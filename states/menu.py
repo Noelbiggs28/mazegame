@@ -63,8 +63,8 @@ class Menu(BaseState):
             self.quit = True
         elif event.type == pygame.KEYUP:
             # testing exp
-            if event.key == pygame.K_a:
-                print(self.persist['profile'][0])
+            if event.key == pygame.K_p:
+                print(self.persist['high_scores'])
             elif event.key == pygame.K_z:
                 self.persist['profile'][0]['exp'] = Player_Data.change_num_stat(self.persist['profile'][0],'exp',1)
         elif event.type == pygame.MOUSEBUTTONUP:
