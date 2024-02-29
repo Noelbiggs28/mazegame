@@ -153,6 +153,8 @@ class Gameplay(BaseState):
                 self.player.move(-1, 0)
             elif event.key == K_RIGHT or event.key == K_d:
                 self.player.move(1, 0)
+            elif event.key ==K_p:
+                print(self.persist['profile'])
             # print persist for testing
             elif event.key == K_p:
                 print(self.maze_and_exit)

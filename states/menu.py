@@ -18,7 +18,7 @@ class Menu(BaseState):
         return self.font.render(self.options[index], True, color)
 
     def get_text_position(self, text, index):
-        center = (self.screen_rect.centerx-200, 250 + (index * 50))
+        center = (self.screen_rect.centerx-150, 250 + (index * 50))
         return text.get_rect(center=center)
 
     def handle_action(self, index):
@@ -66,7 +66,7 @@ class Menu(BaseState):
         elif event.type == pygame.KEYUP:
             # testing exp
             if event.key == pygame.K_p:
-                print(self.persist['high_scores'])
+                print(self.persist)
             elif event.key == pygame.K_z:
                 self.persist['profile'][0]['exp'] = Player_Data.change_num_stat(self.persist['profile'][0],'exp',1)
         elif event.type == pygame.MOUSEBUTTONUP:

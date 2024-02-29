@@ -31,7 +31,7 @@ class Select_Profile(BaseState):
         # save profile info and path to persistant data for updating throughout game
         if csv_file:
             self.handle_action(csv_file)
-
+        
         surface.fill(pygame.Color("black"))
         # Display the prompt
         prompt_text = self.font.render("Select questions file:", True, pygame.Color("white"))

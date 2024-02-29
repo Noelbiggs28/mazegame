@@ -1,4 +1,6 @@
 import pygame
+
+from states.base import BaseState
 from classes.sprite_assigner import Sprite_Assigner
 class Player(Sprite_Assigner):
     def __init__(self, x, y, maze):
@@ -14,7 +16,8 @@ class Player(Sprite_Assigner):
         self.walkable_squares = [6,7,12]
         self.sight = 4
         self.step_counter = 1
-
+        
+        
     def move(self, dx, dy):
         new_x = self.x + dx
         new_y = self.y + dy
