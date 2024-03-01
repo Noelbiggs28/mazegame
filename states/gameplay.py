@@ -179,6 +179,8 @@ class Gameplay(BaseState):
         if self.player.x == self.maze_and_exit[1][0] and self.player.y == self.maze_and_exit[1][1]:
             #updates and saves exp
             self.persist['profile'][0]['exp'] = Player_Data.change_num_stat(self.persist['profile'][0],'exp',1)
+            level = self.player.get_level()
+            self.persist['profile'][0]['level'] = level
             Player_Data.save_player_stats(self.persist['profile'][0]['path'] ,self.persist['profile'])
             pygame.mixer.music.stop()
             # changes next state to high schore state if you made it to the top 5

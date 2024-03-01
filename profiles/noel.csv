@@ -1,2 +1,2 @@
-name,health,exp,path
-noel,3,21,profiles/noel.csv
+name,health,exp,path,level
+noel,3,24,profiles/noel.csv,4

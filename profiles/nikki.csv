@@ -1,2 +1,2 @@
-name,health,exp,path
-nikki,3,0,
+name,health,exp,path,level
+nikki,3,0,profiles/nikki.csv,1

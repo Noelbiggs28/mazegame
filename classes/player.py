@@ -17,7 +17,7 @@ class Player(Sprite_Assigner):
         self.sight = 1
         self.step_counter = 1
         self.profile = None
-        
+        self.coins = 0
         
     def move(self, dx, dy):
         new_x = self.x + dx
@@ -40,10 +40,15 @@ class Player(Sprite_Assigner):
         self.step_counter +=1
 
     def update_player_with_profile(self):
+        level = int(self.profile[0]['level'])
+        player_sight_buff = level // 2
+        self.sight += player_sight_buff
+        
+
+    def get_level(self):  
         exp = int(self.profile[0]['exp'])
-        level = int(math.sqrt(exp))//2
-        self.sight += level
-        print(level)
+        level = int(math.sqrt(exp)) 
+        return level
             
 # draws player
     def draw(self, surface):
