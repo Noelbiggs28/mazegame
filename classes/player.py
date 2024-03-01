@@ -43,6 +43,8 @@ class Player(Sprite_Assigner):
         level = int(self.profile[0]['level'])
         player_sight_buff = level // 2
         self.sight += player_sight_buff
+        coins = int(self.profile[0]['coins'])
+        self.coins = coins
         
 
     def get_level(self):  

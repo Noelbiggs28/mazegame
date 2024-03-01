@@ -73,6 +73,10 @@ class Gameplay(BaseState):
         self.trivia_questions = self.persist['questions']
         self.done_once = True
 
+    def correct_answer(self):
+        self.score += 1
+        self.player.coins += 1
+        self.right_sound.play()
     def get_event(self, event):
         if event.type == pygame.QUIT:
             self.quit = True
@@ -99,8 +103,7 @@ class Gameplay(BaseState):
                         if self.player_answer:
                             correct_answer = self.current_question['correct_answer']
                             if self.player_answer == correct_answer:
-                                self.score += 1
-                                self.right_sound.play()
+                                self.correct_answer()
                             else:
                                 self.health -= 1
                                 self.wrong_sound.play()
@@ -127,8 +130,7 @@ class Gameplay(BaseState):
                     if self.current_question and self.player_answer:
                         correct_answer = self.current_question['answer']
                         if self.player_answer.lower() == correct_answer.lower():
-                            self.score +=1
-                            self.right_sound.play()
+                            self.correct_answer()
                         else:
                             self.health -= 1
                             self.wrong_sound.play()
@@ -181,6 +183,8 @@ class Gameplay(BaseState):
             self.persist['profile'][0]['exp'] = Player_Data.change_num_stat(self.persist['profile'][0],'exp',1)
             level = self.player.get_level()
             self.persist['profile'][0]['level'] = level
+            self.persist['profile'][0]['coins'] = self.player.coins
+            
             Player_Data.save_player_stats(self.persist['profile'][0]['path'] ,self.persist['profile'])
             pygame.mixer.music.stop()
             # changes next state to high schore state if you made it to the top 5
