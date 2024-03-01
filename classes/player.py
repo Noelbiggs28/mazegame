@@ -1,6 +1,6 @@
 import pygame
+import math
 
-from states.base import BaseState
 from classes.sprite_assigner import Sprite_Assigner
 class Player(Sprite_Assigner):
     def __init__(self, x, y, maze):
@@ -14,8 +14,9 @@ class Player(Sprite_Assigner):
         self.has_key = False
         self.has_flashlight = False
         self.walkable_squares = [6,7,12]
-        self.sight = 4
+        self.sight = 1
         self.step_counter = 1
+        self.profile = None
         
         
     def move(self, dx, dy):
@@ -37,6 +38,12 @@ class Player(Sprite_Assigner):
         elif dy > 0:
             self.player_image = self.player_down
         self.step_counter +=1
+
+    def update_player_with_profile(self):
+        exp = int(self.profile[0]['exp'])
+        level = int(math.sqrt(exp))//2
+        self.sight += level
+        print(level)
             
 # draws player
     def draw(self, surface):

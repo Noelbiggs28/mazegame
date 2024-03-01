@@ -39,7 +39,10 @@ class Game(object):
         persistent = self.state.persist #store persistant data in current state
         self.state = self.states[self.state_name] #changes current state to next state
         self.state.startup(persistent) #loads persistant data from 2 lines up into new state.
-        self.state.do_once() #perform any actions for state you only want run once upon switching to the state
+        # perform any actions for state you only want run once upon switching to the state
+        # actions that cannot be performed on init because they depend on persistant data
+        # such as question/profile selection.
+        self.state.do_once() 
         
 
     def update(self, dt):

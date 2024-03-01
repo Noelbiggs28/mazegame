@@ -55,8 +55,11 @@ class Gameplay(BaseState):
         self.answer_choices = None
         self.choice = None
 
-    # do these things once 
+    # do things once 
     def do_once(self):
+        # puts profile selected stats into player
+        self.player.profile = self.persist['profile']
+        self.player.update_player_with_profile()
         # if sound is checked in option play sounds and music
         if self.persist['sound']:
             pygame.mixer.music.load("images/maze_music.wav") 
@@ -154,7 +157,7 @@ class Gameplay(BaseState):
             elif event.key == K_RIGHT or event.key == K_d:
                 self.player.move(1, 0)
             elif event.key ==K_p:
-                print(self.persist['profile'])
+                print(self.player.profile)
             # print persist for testing
             elif event.key == K_p:
                 print(self.maze_and_exit)
